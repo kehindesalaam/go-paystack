@@ -139,7 +139,7 @@ func (s *PlanService) Fetch(ctx context.Context, id string) (*Plan, *Response, e
 //
 // Paystack API reference:
 // https://developers.paystack.co/reference#update-plan
-func (s *PlanService) UpdatePlan(ctx context.Context, sa *Plan, id string) (*PlanSubscription, *Response, error) {
+func (s *PlanService) Update(ctx context.Context, sa *Plan, id string) (*PlanSubscription, *Response, error) {
 	u := fmt.Sprintf("plan/" + id)
 	req, err := s.client.NewRequest("PUT", u, sa)
 	if err != nil {

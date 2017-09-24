@@ -40,20 +40,20 @@ type Client struct {
 	common service // Reuse a single struct instead of allocating one for each service on the heap.
 
 	// Services used for talking to different parts of the Paystack API.
+	Balance           *BalanceService
+	BulkCharge        *BulkChargeService
+	Charge            *ChargeService
 	Customer          *CustomerService
-	Transaction       *TransactionService
-	Subaccount        *SubaccountService
-	Plan              *PlanService
-	Subscription      *SubscriptionService
-	Page              *PageService
-	Settlement        *SettlementService
+	Integration       *IntegrationService
 	Miscellaneous     *MiscellaneousService
+	Page              *PageService
+	Plan              *PlanService
+	Settlement        *SettlementService
+	Subaccount        *SubaccountService
+	Subscription      *SubscriptionService
+	Transaction       *TransactionService
 	Transfer          *TransferService
 	TransferRecipient *TransferRecipientService
-	//TransferControl   *TransferControlService
-	BulkCharge  *BulkChargeService
-	Integration *IntegrationService
-	Charge      *ChargeService
 }
 
 type service struct {
@@ -105,42 +105,42 @@ type ListOptions struct {
 
 type BullkChargeOptions struct {
 	ListOptions
-	Status   string    `json:"status, omitempty"`
+	Status string `json:"status, omitempty"`
 }
 
 type IntegrationOptions struct {
-	Timeout     *int       `json:"timeout, omitempty"`
+	Timeout *int `json:"timeout, omitempty"`
 }
 
 type TransactionOptions struct {
 	ListOptions
-	Customer int32     `json:"customer, omitempty"`
-	Status   string    `json:"status, omitempty"`
-	From     time.Time `json:"from, omitempty"`
-	To       time.Time `json:"to, omitempty"`
-	Amount   string    `json:"amount, omitempty"`
-	Settled     *bool      `json:"settled, omitempty"`
-	PaymentPage *int       `json:"payment_page, omitempty"`
-	Currency    *string    `json:"currency, omitempty"`
-	Settlement  *int       `json:"settlement, omitempty"`
+	Customer    int32     `json:"customer, omitempty"`
+	Status      string    `json:"status, omitempty"`
+	From        time.Time `json:"from, omitempty"`
+	To          time.Time `json:"to, omitempty"`
+	Amount      string    `json:"amount, omitempty"`
+	Settled     *bool     `json:"settled, omitempty"`
+	PaymentPage *int      `json:"payment_page, omitempty"`
+	Currency    *string   `json:"currency, omitempty"`
+	Settlement  *int      `json:"settlement, omitempty"`
 }
 
 type SettlementOptions struct {
-	From     time.Time `json:"from, omitempty"`
-	To       time.Time `json:"to, omitempty"`
-	Subaccount  *string    `json:"subaccount, omitempty"`
+	From       time.Time `json:"from, omitempty"`
+	To         time.Time `json:"to, omitempty"`
+	Subaccount *string   `json:"subaccount, omitempty"`
 }
 
 type PlanOptions struct {
 	ListOptions
 	Interval *string `json:"interval, omitempty"`
-	Amount   string    `json:"amount, omitempty"`
+	Amount   string  `json:"amount, omitempty"`
 }
 
 type SubscriptionOptions struct {
 	ListOptions
-	Customer int32     `json:"customer, omitempty"`
-	Plan        *int32     `json:"plan, omitempty"`
+	Customer int32  `json:"customer, omitempty"`
+	Plan     *int32 `json:"plan, omitempty"`
 }
 
 type Log struct {
@@ -239,20 +239,20 @@ func NewClient(httpClient *http.Client, options ...func(*Client)) *Client {
 	baseURL, _ := url.Parse(defaultBaseURL)
 	c := &Client{client: httpClient, BaseURL: baseURL, UserAgent: userAgent}
 	c.common.client = c
+	c.Balance = (*BalanceService)(&c.common)
+	c.BulkCharge = (*BulkChargeService)(&c.common)
+	c.Charge = (*ChargeService)(&c.common)
 	c.Customer = (*CustomerService)(&c.common)
-	c.Transaction = (*TransactionService)(&c.common)
-	c.Subaccount = (*SubaccountService)(&c.common)
-	c.Plan = (*PlanService)(&c.common)
-	c.Subscription = (*SubscriptionService)(&c.common)
-	c.Page = (*PageService)(&c.common)
-	c.Settlement = (*SettlementService)(&c.common)
+	c.Integration = (*IntegrationService)(&c.common)
 	c.Miscellaneous = (*MiscellaneousService)(&c.common)
+	c.Page = (*PageService)(&c.common)
+	c.Plan = (*PlanService)(&c.common)
+	c.Settlement = (*SettlementService)(&c.common)
+	c.Subaccount = (*SubaccountService)(&c.common)
+	c.Subscription = (*SubscriptionService)(&c.common)
+	c.Transaction = (*TransactionService)(&c.common)
 	c.Transfer = (*TransferService)(&c.common)
 	c.TransferRecipient = (*TransferRecipientService)(&c.common)
-	//c.TransferControl = (*TransferControlService)(&c.common)
-	c.BulkCharge = (*BulkChargeService)(&c.common)
-	c.Integration = (*IntegrationService)(&c.common)
-	c.Charge = (*ChargeService)(&c.common)
 
 	for _, option := range options {
 		option(c)
