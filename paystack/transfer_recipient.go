@@ -66,7 +66,7 @@ func (s *TransferRecipientService) Create(ctx context.Context, t *TransferRecipi
 //
 // Paystack API reference:
 // https://developers.paystack.co/reference#list-transfers
-func (s *TransferRecipientService) List(ctx context.Context, opt *Options) ([]TransferRecipient, *Response, error) {
+func (s *TransferRecipientService) List(ctx context.Context, opt *ListOptions) ([]TransferRecipient, *Response, error) {
 	u := fmt.Sprintf("transfer")
 	//Response is erroneous if opt.Page or opt.PerPage = 0
 	u, err := addOptions(u, opt)

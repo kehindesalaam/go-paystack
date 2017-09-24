@@ -94,25 +94,53 @@ type Message struct {
 	Message *string `json:"message, omitempty"`
 }
 
-// Options specifies the optional parameters to various List methods
-type Options struct {
+// ListOptions specifies the optional parameters to various List methods
+type ListOptions struct {
 	// For paginated result sets, page of results to retrieve.
 	Page int `url:"page,omitempty"`
 
 	// For paginated result sets, the number of results to include per page.
-	PerPage     int        `url:"perPage,omitempty"`
-	From        *time.Time `json:"from, omitempty"`
-	To          *time.Time `json:"to, omitempty"`
-	Customer    *int32     `json:"customer, omitempty"`
-	Status      *string    `json:"status, omitempty"`
-	Amount      *string    `json:"amount, omitempty"`
-	Plan        *int32     `json:"plan, omitempty"`
-	Subaccount  *string    `json:"subaccount, omitempty"`
+	PerPage int `url:"perPage,omitempty"`
+}
+
+type BullkChargeOptions struct {
+	ListOptions
+	Status   string    `json:"status, omitempty"`
+}
+
+type IntegrationOptions struct {
 	Timeout     *int       `json:"timeout, omitempty"`
+}
+
+type TransactionOptions struct {
+	ListOptions
+	Customer int32     `json:"customer, omitempty"`
+	Status   string    `json:"status, omitempty"`
+	From     time.Time `json:"from, omitempty"`
+	To       time.Time `json:"to, omitempty"`
+	Amount   string    `json:"amount, omitempty"`
 	Settled     *bool      `json:"settled, omitempty"`
 	PaymentPage *int       `json:"payment_page, omitempty"`
 	Currency    *string    `json:"currency, omitempty"`
 	Settlement  *int       `json:"settlement, omitempty"`
+}
+
+type SettlementOptions struct {
+	From     time.Time `json:"from, omitempty"`
+	To       time.Time `json:"to, omitempty"`
+	Subaccount  *string    `json:"subaccount, omitempty"`
+}
+
+type PlanOptions struct {
+	ListOptions
+	Interval *string `json:"interval, omitempty"`
+	Amount   string    `json:"amount, omitempty"`
+}
+
+type SubscriptionOptions struct {
+	ListOptions
+	Customer int32     `json:"customer, omitempty"`
+	Plan        *int32     `json:"plan, omitempty"`
 }
 
 type Log struct {

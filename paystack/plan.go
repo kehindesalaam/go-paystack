@@ -87,7 +87,7 @@ func (s *PlanService) Create(ctx context.Context, p *PlanRequest) (*Plan, *Respo
 //
 // Paystack API reference:
 // https://developers.paystack.co/reference#list-plans
-func (s *PlanService) List(ctx context.Context, opt *Options) ([]Plan, *Response, error) {
+func (s *PlanService) List(ctx context.Context, opt *PlanOptions) ([]Plan, *Response, error) {
 	u := fmt.Sprintf("plan")
 	//Response is erroneous if opt.Page or opt.PerPage = 0
 	u, err := addOptions(u, opt)

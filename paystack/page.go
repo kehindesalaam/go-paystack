@@ -69,7 +69,7 @@ func (s *PageService) Create(ctx context.Context, sa *PageRequest) (*Page, *Resp
 //
 // Paystack API reference:
 // https://developers.paystack.co/reference#list-pages
-func (s *PageService) List(ctx context.Context, opt *Options) ([]Page, *Response, error) {
+func (s *PageService) List(ctx context.Context, opt *ListOptions) ([]Page, *Response, error) {
 	u := fmt.Sprintf("page")
 	//Response is erroneous if opt.Page or opt.PerPage = 0
 	u, err := addOptions(u, opt)

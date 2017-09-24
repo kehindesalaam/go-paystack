@@ -62,7 +62,7 @@ func (s *BulkChargeService) Initiate(ctx context.Context, request *BulkBatchRequ
 //
 // Paystack API reference:
 // https://developers.paystack.co/reference#list-transactions
-func (s *BulkChargeService) ListBatches(ctx context.Context, opt *Options) ([]BulkBatch, *Response, error) {
+func (s *BulkChargeService) ListBatches(ctx context.Context, opt *ListOptions) ([]BulkBatch, *Response, error) {
 	u := fmt.Sprintf("bulkcharge")
 	//Response is erroneous if opt.Page or opt.PerPage = 0
 	u, err := addOptions(u, opt)
@@ -111,7 +111,7 @@ func (s *BulkChargeService) FetchBatch(ctx context.Context, id string) (*BulkBat
 //
 // Paystack API reference:
 // https://developers.paystack.co/reference#fetch-transaction
-func (s *BulkChargeService) FetchBatchCharges(ctx context.Context, id string, opt *Options) ([]BulkCharge, *Response, error) {
+func (s *BulkChargeService) FetchBatchCharges(ctx context.Context, id string, opt *BullkChargeOptions) ([]BulkCharge, *Response, error) {
 	u := fmt.Sprintf("bulkcharge/" + id + "charges")
 	//Response is erroneous if opt.Page or opt.PerPage = 0
 

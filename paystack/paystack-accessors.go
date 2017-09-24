@@ -836,7 +836,7 @@ func (m *Message) GetStatus() bool {
 }
 
 // GetAmount returns the Amount field if it's non-nil, zero value otherwise.
-func (o *Options) GetAmount() string {
+func (o *ListOptions) GetAmount() string {
 	if o == nil || o.Amount == nil {
 		return ""
 	}
@@ -844,7 +844,7 @@ func (o *Options) GetAmount() string {
 }
 
 // GetCurrency returns the Currency field if it's non-nil, zero value otherwise.
-func (o *Options) GetCurrency() string {
+func (o *ListOptions) GetCurrency() string {
 	if o == nil || o.Currency == nil {
 		return ""
 	}
@@ -852,7 +852,7 @@ func (o *Options) GetCurrency() string {
 }
 
 // GetFrom returns the From field if it's non-nil, zero value otherwise.
-func (o *Options) GetFrom() time.Time {
+func (o *ListOptions) GetFrom() time.Time {
 	if o == nil || o.From == nil {
 		return time.Time{}
 	}
@@ -860,7 +860,7 @@ func (o *Options) GetFrom() time.Time {
 }
 
 // GetPaymentPage returns the PaymentPage field if it's non-nil, zero value otherwise.
-func (o *Options) GetPaymentPage() int {
+func (o *ListOptions) GetPaymentPage() int {
 	if o == nil || o.PaymentPage == nil {
 		return 0
 	}
@@ -868,7 +868,7 @@ func (o *Options) GetPaymentPage() int {
 }
 
 // GetSettled returns the Settled field if it's non-nil, zero value otherwise.
-func (o *Options) GetSettled() bool {
+func (o *ListOptions) GetSettled() bool {
 	if o == nil || o.Settled == nil {
 		return false
 	}
@@ -876,7 +876,7 @@ func (o *Options) GetSettled() bool {
 }
 
 // GetSettlement returns the Settlement field if it's non-nil, zero value otherwise.
-func (o *Options) GetSettlement() int {
+func (o *ListOptions) GetSettlement() int {
 	if o == nil || o.Settlement == nil {
 		return 0
 	}
@@ -884,7 +884,7 @@ func (o *Options) GetSettlement() int {
 }
 
 // GetStatus returns the Status field if it's non-nil, zero value otherwise.
-func (o *Options) GetStatus() string {
+func (o *ListOptions) GetStatus() string {
 	if o == nil || o.Status == nil {
 		return ""
 	}
@@ -892,7 +892,7 @@ func (o *Options) GetStatus() string {
 }
 
 // GetSubaccount returns the Subaccount field if it's non-nil, zero value otherwise.
-func (o *Options) GetSubaccount() string {
+func (o *ListOptions) GetSubaccount() string {
 	if o == nil || o.Subaccount == nil {
 		return ""
 	}
@@ -900,7 +900,7 @@ func (o *Options) GetSubaccount() string {
 }
 
 // GetTimeout returns the Timeout field if it's non-nil, zero value otherwise.
-func (o *Options) GetTimeout() int {
+func (o *ListOptions) GetTimeout() int {
 	if o == nil || o.Timeout == nil {
 		return 0
 	}
@@ -908,7 +908,7 @@ func (o *Options) GetTimeout() int {
 }
 
 // GetTo returns the To field if it's non-nil, zero value otherwise.
-func (o *Options) GetTo() time.Time {
+func (o *ListOptions) GetTo() time.Time {
 	if o == nil || o.To == nil {
 		return time.Time{}
 	}

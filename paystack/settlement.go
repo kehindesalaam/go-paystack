@@ -26,7 +26,7 @@ type Settlement struct {
 //
 // Paystack API reference:
 // https://developers.paystack.co/reference#fetch-settlements
-func (s *SettlementService) Fetch(ctx context.Context, opt *Options) ([]Settlement, *Response, error) {
+func (s *SettlementService) Fetch(ctx context.Context, opt *SettlementOptions) ([]Settlement, *Response, error) {
 	u := fmt.Sprintf("settlement")
 	//Response is erroneous if opt.Page or opt.PerPage = 0
 	u, err := addOptions(u, opt)

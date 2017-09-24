@@ -35,7 +35,7 @@ func (s *IntegrationService) FetchPaymentSessionTimeout(ctx context.Context) (*P
 //
 // Paystack API reference:
 // https://developers.paystack.co/reference#update-payment-session-timeout
-func (s *IntegrationService) UpdatePaymentSessionTimeout(ctx context.Context, options Options) (*PaymentSession, *Response, error) {
+func (s *IntegrationService) UpdatePaymentSessionTimeout(ctx context.Context, options IntegrationOptions) (*PaymentSession, *Response, error) {
 	u := fmt.Sprintf("integration/payment_session_timeout")
 
 	req, err := s.client.NewRequest("PUT", u, nil)

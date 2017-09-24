@@ -50,7 +50,7 @@ type AccountData struct {
 //
 // Paystack API reference:
 // https://developers.paystack.co/reference#list-banks
-func (s *MiscellaneousService) ListBanks(ctx context.Context, opt *Options) ([]Bank, *Response, error) {
+func (s *MiscellaneousService) ListBanks(ctx context.Context, opt *ListOptions) ([]Bank, *Response, error) {
 	u := fmt.Sprintf("bank")
 	//Response is erroneous if opt.Page or opt.PerPage = 0
 	u, err := addOptions(u, opt)
@@ -118,7 +118,7 @@ func (s *MiscellaneousService) ResolveBvn(ctx context.Context, id string) (*BvnD
 //
 // Paystack API reference:
 // https://developers.paystack.co/reference#resolve-account-number
-func (s *MiscellaneousService) ResolveAccountNumber(ctx context.Context, opt *Options) (*AccountData, *Response, error) {
+func (s *MiscellaneousService) ResolveAccountNumber(ctx context.Context, opt *ListOptions) (*AccountData, *Response, error) {
 	u := fmt.Sprintf("bank/resolve")
 	u, err := addOptions(u, opt)
 	if err != nil {

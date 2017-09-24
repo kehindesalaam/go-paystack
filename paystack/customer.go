@@ -86,7 +86,7 @@ func (s *CustomerService) Create(ctx context.Context, cr *CustomerRequest) (*Cus
 //
 // Paystack API reference:
 // https://developers.paystack.co/reference#list-customers
-func (s *CustomerService) List(ctx context.Context, opt *Options) ([]Customer, *Response, error) {
+func (s *CustomerService) List(ctx context.Context, opt *ListOptions) ([]Customer, *Response, error) {
 	u := fmt.Sprintf("customer")
 	//Response is erroneous if opt.Page or opt.PerPage = 0
 	u, err := addOptions(u, opt)

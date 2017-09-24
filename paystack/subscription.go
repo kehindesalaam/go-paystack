@@ -82,7 +82,7 @@ func (s *SubscriptionService) Create(ctx context.Context, sa *Subscription) (*Su
 //
 // Paystack API reference:
 // https://developers.paystack.co/reference#list-subscriptions
-func (s *SubscriptionService) List(ctx context.Context, opt *Options) ([]Subscription, *Response, error) {
+func (s *SubscriptionService) List(ctx context.Context, opt *SubscriptionOptions) ([]Subscription, *Response, error) {
 	u := fmt.Sprintf("subscription")
 	//Response is erroneous if opt.Page or opt.PerPage = 0
 	u, err := addOptions(u, opt)

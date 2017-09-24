@@ -69,7 +69,7 @@ func (s *SubaccountService) Create(ctx context.Context, sr *SubaccountRequest) (
 //
 // Paystack API reference:
 // https://developers.paystack.co/reference#list-subaccounts
-func (s *SubaccountService) List(ctx context.Context, opt *Options) ([]Subaccount, *Response, error) {
+func (s *SubaccountService) List(ctx context.Context, opt *ListOptions) ([]Subaccount, *Response, error) {
 	u := fmt.Sprintf("subaccount")
 	//Response is erroneous if opt.Page or opt.PerPage = 0
 	u, err := addOptions(u, opt)

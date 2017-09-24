@@ -52,15 +52,6 @@ type Transaction struct {
 	Subaccount      Subaccount    `json:"subaccount, omitempty"`
 }
 
-type TransactionOptions struct {
-	Options
-	Customer int32     `json:"customer, omitempty"`
-	Status   string    `json:"status, omitempty"`
-	From     time.Time `json:"from, omitempty"`
-	To       time.Time `json:"to, omitempty"`
-	Amount   string    `json:"amount, omitempty"`
-}
-
 type TransactionTimeline struct {
 	TimeSpent      *int          `json:"time_spent, omitempty"`
 	Attempts       *int          `json:"attempts, omitempty"`
@@ -100,11 +91,11 @@ type Reauthorization struct {
 	Reference          *string `json:"reference, omitempty"`
 }
 
-// InitializeTransaction
+// Initialize
 //
 // Paystack API reference:
 // https://developers.paystack.co/reference#initialize-a-transaction
-func (s *TransactionService) InitializeTransaction(ctx context.Context, tr *TransactionRequest) (*Transaction, *Response, error) {
+func (s *TransactionService) Initialize(ctx context.Context, tr *TransactionRequest) (*Transaction, *Response, error) {
 	u := fmt.Sprintf("transaction/initialize")
 	req, err := s.client.NewRequest("POST", u, tr)
 	if err != nil {
@@ -121,11 +112,11 @@ func (s *TransactionService) InitializeTransaction(ctx context.Context, tr *Tran
 	return &t, resp, nil
 }
 
-//VerifyTransaction creates a new customer
+//Verify creates a new customer
 //
 // Paystack API reference:
 // https://developers.paystack.co/reference#initialize-a-transaction
-func (s *TransactionService) VerifyTransaction(ctx context.Context, reference string) (*Transaction, *Response, error) {
+func (s *TransactionService) Verify(ctx context.Context, reference string) (*Transaction, *Response, error) {
 	u := fmt.Sprintf("transaction/verify" + reference)
 	req, err := s.client.NewRequest("GET", u, nil)
 	if err != nil {
@@ -142,11 +133,11 @@ func (s *TransactionService) VerifyTransaction(ctx context.Context, reference st
 	return &t, resp, nil
 }
 
-// ListTransactions lists all transactions
+// List lists all transactions
 //
 // Paystack API reference:
 // https://developers.paystack.co/reference#list-transactions
-func (s *TransactionService) ListTransactions(ctx context.Context, opt *TransactionOptions) ([]Transaction, *Response, error) {
+func (s *TransactionService) List(ctx context.Context, opt *TransactionOptions) ([]Transaction, *Response, error) {
 	u := fmt.Sprintf("transaction")
 	//Response is erroneous if opt.Page or opt.PerPage = 0
 	u, err := addOptions(u, opt)
@@ -171,11 +162,11 @@ func (s *TransactionService) ListTransactions(ctx context.Context, opt *Transact
 	return ta, resp, nil
 }
 
-// FetchTransaction fetches a transaction
+// Fetch fetches a transaction
 //
 // Paystack API reference:
 // https://developers.paystack.co/reference#fetch-transaction
-func (s *TransactionService) FetchTransaction(ctx context.Context, id string) (*Transaction, *Response, error) {
+func (s *TransactionService) Fetch(ctx context.Context, id string) (*Transaction, *Response, error) {
 	u := fmt.Sprintf("transaction/" + id)
 	req, err := s.client.NewRequest("GET", u, nil)
 	if err != nil {
@@ -262,8 +253,9 @@ func (s *TransactionService) Totals(ctx context.Context, opt *TransactionOptions
 //
 // Paystack API reference:
 // https://developers.paystack.co/reference#export-transactions
-func (s *TransactionService) ExportTransactions(ctx context.Context) (*ExportPath, *Response, error) {
+func (s *TransactionService) Export(ctx context.Context, opt *TransactionOptions) (*ExportPath, *Response, error) {
 	u := fmt.Sprintf("transaction/export")
+	u, err := addOptions(u, opt)
 	req, err := s.client.NewRequest("GET", u, nil)
 	if err != nil {
 		return nil, nil, err

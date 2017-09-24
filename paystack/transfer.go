@@ -70,7 +70,7 @@ func (s *TransferService) Initiate(ctx context.Context, t *TransferRequest) (*Tr
 //
 // Paystack API reference:
 // https://developers.paystack.co/reference#list-transfers
-func (s *TransferService) List(ctx context.Context, opt *Options) ([]Transfer, *Response, error) {
+func (s *TransferService) List(ctx context.Context, opt *ListOptions) ([]Transfer, *Response, error) {
 	u := fmt.Sprintf("transfer")
 	//Response is erroneous if opt.Page or opt.PerPage = 0
 	u, err := addOptions(u, opt)
