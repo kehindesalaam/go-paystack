@@ -9,13 +9,13 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
+	"reflect"
 	"strings"
 	"sync"
-	"reflect"
 
 	"github.com/google/go-querystring/query"
-	"time"
 	"github.com/mitchellh/mapstructure"
+	"time"
 )
 
 const (
@@ -51,9 +51,9 @@ type Client struct {
 	Transfer          *TransferService
 	TransferRecipient *TransferRecipientService
 	//TransferControl   *TransferControlService
-	BulkCharge        *BulkChargeService
-	Integration       *IntegrationService
-	Charge            *ChargeService
+	BulkCharge  *BulkChargeService
+	Integration *IntegrationService
+	Charge      *ChargeService
 }
 
 type service struct {
@@ -62,23 +62,23 @@ type service struct {
 
 //The standard response type when the Paystack API returns a single data object
 type StandardResponse struct {
-	Status  bool     `json:"status"`
-	Message string   `json:"message"`
+	Status  bool                   `json:"status"`
+	Message string                 `json:"message"`
 	Data    map[string]interface{} `json:"data"`
-	Meta    Meta        `json:"meta"`
+	Meta    Meta                   `json:"meta"`
 }
 
 //Object to model the meta json object returned by the Paystack API
 type MetaResponse struct {
-	Meta    Meta        `json:"meta"`
+	Meta Meta `json:"meta"`
 }
 
 //The standard response type when the Paystack API returns a list of data object
 type StandardListResponse struct {
-	Status  bool     `json:"status"`
-	Message string   `json:"message"`
+	Status  bool                     `json:"status"`
+	Message string                   `json:"message"`
 	Data    []map[string]interface{} `json:"data"`
-	Meta    Meta        `json:"meta"`
+	Meta    Meta                     `json:"meta"`
 }
 
 type Meta struct {
@@ -89,24 +89,30 @@ type Meta struct {
 	PageCount int    `json:"pageCount"`
 }
 
-//TODO: look at it
-// ListOptions specifies the optional parameters to various List methods that
-// support pagination.
-type ListOptions struct {
+type Message struct {
+	Status  *bool   `json:"status, omitempty"`
+	Message *string `json:"message, omitempty"`
+}
+
+// Options specifies the optional parameters to various List methods
+type Options struct {
 	// For paginated result sets, page of results to retrieve.
-	Page *int `url:"page,omitempty"`
+	Page int `url:"page,omitempty"`
 
 	// For paginated result sets, the number of results to include per page.
-	PerPage *int `url:"perPage,omitempty"`
-
-	From       *time.Time `json:"from"`
-	To         *time.Time `json:"to"`
-	Customer   *int32     `json:"customer"`
-	Status     *string    `json:"status"`
-	Amount     *string    `json:"amount"`
-	Plan       *int32     `json:"plan"`
-	Subaccount *string    `json:"subaccount"`
-	Timeout    *int       `json:"timeout"`
+	PerPage     int        `url:"perPage,omitempty"`
+	From        *time.Time `json:"from, omitempty"`
+	To          *time.Time `json:"to, omitempty"`
+	Customer    *int32     `json:"customer, omitempty"`
+	Status      *string    `json:"status, omitempty"`
+	Amount      *string    `json:"amount, omitempty"`
+	Plan        *int32     `json:"plan, omitempty"`
+	Subaccount  *string    `json:"subaccount, omitempty"`
+	Timeout     *int       `json:"timeout, omitempty"`
+	Settled     *bool      `json:"settled, omitempty"`
+	PaymentPage *int       `json:"payment_page, omitempty"`
+	Currency    *string    `json:"currency, omitempty"`
+	Settlement  *int       `json:"settlement, omitempty"`
 }
 
 type Log struct {
@@ -143,21 +149,21 @@ type Authorization struct {
 }
 
 type Photo struct {
-	Type      string `json:"type"`
-	TypeId    string `json:"typeId"`
-	TypeName  string `json:"typeName"`
-	URL       string `json:"url"`
-	IsPrimary bool   `json:"isPrimary"`
+	Type      string `json:"type, omitempty"`
+	TypeId    string `json:"typeId, omitempty"`
+	TypeName  string `json:"typeName, omitempty"`
+	URL       string `json:"url, omitempty"`
+	IsPrimary bool   `json:"isPrimary, omitempty"`
 }
 
 type FieldByCurrency struct {
-	Currency *string `json:"currency"`
-	Amount   *string `json:"amount"`
+	Currency *string `json:"currency, omitempty"`
+	Amount   *string `json:"amount, omitempty"`
 }
 
 type Metadata struct {
-	CustomFields map[string]interface{} `json:"custom_fields, omitempty"`
-	Photos       []Photo                `json:"photos,omitempty"`
+	CustomFields []map[string]interface{} `json:"custom_fields, omitempty"`
+	Photos       []Photo                  `json:"photos,omitempty"`
 }
 
 // addOptions adds the parameters in opt as URL query parameters to s. opt
@@ -478,8 +484,9 @@ func Int(v int) *int { return &v }
 // to store v and returns a pointer to it.
 func String(v string) *string { return &v }
 
-// MapDecoder is a helper function that decodes map[string]interface{} objects into another interface
-func MapDecoder(source interface{}, target interface{} ) error {
+// MapDecoder is a helper function that decodes map[string]interface{}
+// objects into another interface
+func MapDecoder(source interface{}, target interface{}) error {
 	stringToDateTimeHook := func(
 		f reflect.Type,
 		t reflect.Type,
@@ -503,7 +510,7 @@ func MapDecoder(source interface{}, target interface{} ) error {
 
 	err = decoder.Decode(source)
 	if err != nil {
-		return  err
+		return err
 	}
 	return nil
 }
