@@ -1,6 +1,8 @@
 # go-paystack #
 
-go-paystack is a Go client library for accessing the Paystack API
+go-paystack is a Go client library for accessing the Paystack.
+
+**Build Status:** ![Build Status](https://travis-ci.com/kehindesalaam/go-paystack.svg?token=jEi76ESgT7V1Uzbsyqb8&branch=master)
 
 ## Usage ##
 ```go
