@@ -3,7 +3,7 @@ package paystack
 import (
 	"context"
 	"fmt"
-	"github.com/mitchellh/mapstructure"
+
 	"time"
 )
 
@@ -74,7 +74,7 @@ func (s *SubscriptionService) Create(ctx context.Context, sa *Subscription) (*Su
 	}
 
 	var c SubscriptionResponse
-	mapstructure.Decode(r.Data, c)
+	MapDecoder(r.Data, c)
 	return &c, resp, nil
 }
 
@@ -126,7 +126,7 @@ func (s *SubscriptionService) Fetch(ctx context.Context, id string) (*Subscripti
 		return nil, resp, err
 	}
 	var st Subscription
-	err = mapstructure.Decode(r.Data, &st)
+	err = MapDecoder(r.Data, &st)
 	if err != nil {
 		return nil, resp, err
 	}

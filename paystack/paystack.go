@@ -5,6 +5,8 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"github.com/google/go-querystring/query"
+	"github.com/kehindesalaam/mapstructure"
 	"io"
 	"io/ioutil"
 	"net/http"
@@ -12,9 +14,6 @@ import (
 	"reflect"
 	"strings"
 	"sync"
-
-	"github.com/google/go-querystring/query"
-	"github.com/kehindesalaam/mapstructure"
 	"time"
 )
 
@@ -82,11 +81,11 @@ type StandardListResponse struct {
 }
 
 type Meta struct {
-	Total     int    `json:"total"`
-	Skipped   int    `json:"skipped"`
+	Total     int `json:"total"`
+	Skipped   int `json:"skipped"`
 	PerPage   int `json:"perPage"` //awkward
-	Page      int    `json:"page"`
-	PageCount int    `json:"pageCount"`
+	Page      int `json:"page"`
+	PageCount int `json:"pageCount"`
 }
 
 type Message struct {

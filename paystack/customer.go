@@ -6,7 +6,6 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"github.com/mitchellh/mapstructure"
 	"time"
 )
 
@@ -128,7 +127,7 @@ func (s *CustomerService) Fetch(ctx context.Context, id string) (*Customer, *Res
 		return nil, resp, err
 	}
 	var c Customer
-	err = mapstructure.Decode(r.Data, &c)
+	err = MapDecoder(r.Data, &c)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -151,7 +150,7 @@ func (s *CustomerService) Update(ctx context.Context, cr *CustomerRequest, custo
 		return nil, resp, err
 	}
 	var c Customer
-	mapstructure.Decode(&r.Data, c)
+	MapDecoder(&r.Data, c)
 	return &c, resp, nil
 }
 
@@ -175,7 +174,7 @@ func (s *CustomerService) SetRiskAction(ctx context.Context, rap *RiskActionPayl
 		return nil, resp, err
 	}
 	var c Customer
-	mapstructure.Decode(r.Data, c)
+	MapDecoder(r.Data, c)
 	return &c, resp, nil
 }
 
@@ -196,6 +195,6 @@ func (s *CustomerService) DeactivateAuthorization(ctx context.Context, a *Author
 		return nil, resp, err
 	}
 	var c Customer
-	mapstructure.Decode(r.Data, c)
+	MapDecoder(r.Data, c)
 	return &c, resp, nil
 }

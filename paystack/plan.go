@@ -3,7 +3,6 @@ package paystack
 import (
 	"context"
 	"fmt"
-	"github.com/mitchellh/mapstructure"
 	"time"
 )
 
@@ -79,7 +78,7 @@ func (s *PlanService) Create(ctx context.Context, p *PlanRequest) (*Plan, *Respo
 		return nil, resp, err
 	}
 	var pr Plan
-	mapstructure.Decode(r.Data, pr)
+	MapDecoder(r.Data, pr)
 	return &pr, resp, nil
 }
 
@@ -131,7 +130,7 @@ func (s *PlanService) Fetch(ctx context.Context, id string) (*Plan, *Response, e
 		return nil, resp, err
 	}
 	var pr Plan
-	mapstructure.Decode(r.Data, pr)
+	MapDecoder(r.Data, pr)
 	return &pr, resp, nil
 }
 
@@ -151,6 +150,6 @@ func (s *PlanService) Update(ctx context.Context, sa *Plan, id string) (*PlanSub
 		return nil, resp, err
 	}
 	var p PlanSubscription
-	mapstructure.Decode(pr.Data, p)
+	MapDecoder(pr.Data, p)
 	return &p, resp, nil
 }

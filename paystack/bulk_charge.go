@@ -14,15 +14,15 @@ type BulkBatchRequest struct {
 }
 
 type BulkBatch struct {
-	Domain      *string    `json:"domain, omitempty"`
-	BatchCode   *string    `json:"batch_code, omitempty"`
-	Status      *string    `json:"status, omitempty"`
-	Id          *int       `json:"id, omitempty"`
-	Integration *int       `json:"integration, omitempty"`
-	CreatedAt   *time.Time `json:"createdAt, omitempty"`
-	UpdatedAt   *time.Time `json:"updatedAt, omitempty"`
-	TotalCharges *int      `json:"total_charges, omitempty"`
-	PendingCharges *int    `json:"pending_charges, omitempty"`
+	Domain         *string    `json:"domain, omitempty"`
+	BatchCode      *string    `json:"batch_code, omitempty"`
+	Status         *string    `json:"status, omitempty"`
+	Id             *int       `json:"id, omitempty"`
+	Integration    *int       `json:"integration, omitempty"`
+	CreatedAt      *time.Time `json:"createdAt, omitempty"`
+	UpdatedAt      *time.Time `json:"updatedAt, omitempty"`
+	TotalCharges   *int       `json:"total_charges, omitempty"`
+	PendingCharges *int       `json:"pending_charges, omitempty"`
 }
 
 type BulkCharge struct {

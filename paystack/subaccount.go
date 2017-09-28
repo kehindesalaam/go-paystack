@@ -3,7 +3,7 @@ package paystack
 import (
 	"context"
 	"fmt"
-	"github.com/mitchellh/mapstructure"
+
 	"time"
 )
 
@@ -61,7 +61,7 @@ func (s *SubaccountService) Create(ctx context.Context, sr *SubaccountRequest) (
 	}
 
 	var sa Subaccount
-	mapstructure.Decode(r.Data, sa)
+	MapDecoder(r.Data, sa)
 	return &sa, resp, nil
 }
 
@@ -113,7 +113,7 @@ func (s *SubaccountService) Fetch(ctx context.Context, id string) (*Subaccount, 
 		return nil, resp, err
 	}
 	var sa Subaccount
-	mapstructure.Decode(r.Data, sa)
+	MapDecoder(r.Data, sa)
 	return &sa, resp, nil
 }
 
@@ -133,6 +133,6 @@ func (s *SubaccountService) Update(ctx context.Context, sa *SubaccountRequest, i
 		return nil, resp, err
 	}
 	var sar Subaccount
-	mapstructure.Decode(r.Data, sar)
+	MapDecoder(r.Data, sar)
 	return &sar, resp, nil
 }

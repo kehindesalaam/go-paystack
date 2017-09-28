@@ -1,12 +1,12 @@
 package paystack
 
 import (
-	"testing"
-	"net/http"
-	"fmt"
 	"context"
-	"time"
+	"fmt"
 	"github.com/google/go-cmp/cmp"
+	"net/http"
+	"testing"
+	"time"
 )
 
 func TestBulkChargeService_Initiate(t *testing.T) {
@@ -31,24 +31,24 @@ func TestBulkChargeService_Initiate(t *testing.T) {
 		}`)
 	})
 	bbr := []*BulkBatchRequest{}
-	bbr = append(bbr, &BulkBatchRequest{Authorization: String("AUTH_n95vpedf"), Amount:Int(2500)})
-	bbr = append(bbr, &BulkBatchRequest{Authorization: String("AUTH_ljdt4e4j"), Amount:Int(1500)})
+	bbr = append(bbr, &BulkBatchRequest{Authorization: String("AUTH_n95vpedf"), Amount: Int(2500)})
+	bbr = append(bbr, &BulkBatchRequest{Authorization: String("AUTH_ljdt4e4j"), Amount: Int(1500)})
 
-	bc, _ , err := client.BulkCharge.Initiate(context.Background(), bbr)
+	bc, _, err := client.BulkCharge.Initiate(context.Background(), bbr)
 	if err != nil {
 		t.Errorf("BulkCharge.Initiate returned error: %v", err)
 	}
-	createdAt := time.Date(2017,02,04,05,44,19,0,time.UTC)
-	updatedAt := time.Date(2017,02,04,05,44,19,0,time.UTC)
+	createdAt := time.Date(2017, 02, 04, 05, 44, 19, 0, time.UTC)
+	updatedAt := time.Date(2017, 02, 04, 05, 44, 19, 0, time.UTC)
 
 	want := &BulkBatch{
-		Domain:String("test"),
-		BatchCode: String("BCH_180tl7oq7cayggh"),
-		Status: String("active"),
-		Integration:Int(100073),
-		Id:Int(17),
-		CreatedAt: &createdAt,
-		UpdatedAt: &updatedAt,
+		Domain:      String("test"),
+		BatchCode:   String("BCH_180tl7oq7cayggh"),
+		Status:      String("active"),
+		Integration: Int(100073),
+		Id:          Int(17),
+		CreatedAt:   &createdAt,
+		UpdatedAt:   &updatedAt,
 	}
 
 	if !cmp.Equal(bc, want) {
@@ -87,20 +87,20 @@ func TestBulkChargeService_ListBatches(t *testing.T) {
 		}`)
 	})
 
-	bc, _ , err := client.BulkCharge.ListBatches(context.Background(), nil)
+	bc, _, err := client.BulkCharge.ListBatches(context.Background(), nil)
 	if err != nil {
 		t.Errorf("BulkCharge.ListBatches returned error: %v", err)
 	}
 
-	createdAt := time.Date(2017,02,04,05,44,19,0,time.UTC)
-	updatedAt := time.Date(2017,02,04,05,45,02,0,time.UTC)
+	createdAt := time.Date(2017, 02, 04, 05, 44, 19, 0, time.UTC)
+	updatedAt := time.Date(2017, 02, 04, 05, 45, 02, 0, time.UTC)
 
 	var want []BulkBatch
 	want = append(want, BulkBatch{
-		Domain:String("test"),
+		Domain:    String("test"),
 		BatchCode: String("BCH_1nV4L1D7cayggh"),
-		Status: String("complete"),
-		Id:Int(1733),
+		Status:    String("complete"),
+		Id:        Int(1733),
 		CreatedAt: &createdAt,
 		UpdatedAt: &updatedAt,
 	})
@@ -133,23 +133,23 @@ func TestBulkChargeService_FetchBatch(t *testing.T) {
 		}`)
 	})
 
-	bc, _ , err := client.BulkCharge.FetchBatch(context.Background(), "BCH_180tl7oq7cayggh")
+	bc, _, err := client.BulkCharge.FetchBatch(context.Background(), "BCH_180tl7oq7cayggh")
 	if err != nil {
 		t.Errorf("BulkCharge.FetchBatch returned error: %v", err)
 	}
 
-	createdAt := time.Date(2017,02,04,05,44,19,0,time.UTC)
-	updatedAt := time.Date(2017,02,04,05,45,02,0,time.UTC)
+	createdAt := time.Date(2017, 02, 04, 05, 44, 19, 0, time.UTC)
+	updatedAt := time.Date(2017, 02, 04, 05, 45, 02, 0, time.UTC)
 
 	want := &BulkBatch{
-		Domain:String("test"),
-		BatchCode: String("BCH_180tl7oq7cayggh"),
-		Status: String("complete"),
-		Id:Int(17),
-		TotalCharges:Int(0),
-		PendingCharges:Int(0),
-		CreatedAt: &createdAt,
-		UpdatedAt: &updatedAt,
+		Domain:         String("test"),
+		BatchCode:      String("BCH_180tl7oq7cayggh"),
+		Status:         String("complete"),
+		Id:             Int(17),
+		TotalCharges:   Int(0),
+		PendingCharges: Int(0),
+		CreatedAt:      &createdAt,
+		UpdatedAt:      &updatedAt,
 	}
 
 	if !cmp.Equal(bc, want) {
@@ -180,23 +180,23 @@ func TestBulkChargeService_FetchBatchCharges(t *testing.T) {
 		}`)
 	})
 
-	bc, _ , err := client.BulkCharge.FetchBatch(context.Background(), "BCH_180tl7oq7cayggh")
+	bc, _, err := client.BulkCharge.FetchBatch(context.Background(), "BCH_180tl7oq7cayggh")
 	if err != nil {
 		t.Errorf("BulkCharge.FetchBatch returned error: %v", err)
 	}
 
-	createdAt := time.Date(2017,02,04,05,44,19,0,time.UTC)
-	updatedAt := time.Date(2017,02,04,05,45,02,0,time.UTC)
+	createdAt := time.Date(2017, 02, 04, 05, 44, 19, 0, time.UTC)
+	updatedAt := time.Date(2017, 02, 04, 05, 45, 02, 0, time.UTC)
 
 	want := &BulkBatch{
-		Domain:String("test"),
-		BatchCode: String("BCH_180tl7oq7cayggh"),
-		Status: String("complete"),
-		Id:Int(17),
-		TotalCharges:Int(0),
-		PendingCharges:Int(0),
-		CreatedAt: &createdAt,
-		UpdatedAt: &updatedAt,
+		Domain:         String("test"),
+		BatchCode:      String("BCH_180tl7oq7cayggh"),
+		Status:         String("complete"),
+		Id:             Int(17),
+		TotalCharges:   Int(0),
+		PendingCharges: Int(0),
+		CreatedAt:      &createdAt,
+		UpdatedAt:      &updatedAt,
 	}
 
 	if !cmp.Equal(bc, want) {

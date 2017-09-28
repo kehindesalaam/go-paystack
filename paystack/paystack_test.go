@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"net/url"
-	"testing"
 	"reflect"
+	"testing"
 )
 
 var (

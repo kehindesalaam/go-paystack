@@ -5,7 +5,6 @@ package paystack
 import (
 	"context"
 	"fmt"
-	"github.com/mitchellh/mapstructure"
 	"time"
 )
 
@@ -108,7 +107,7 @@ func (s *TransactionService) Initialize(ctx context.Context, tr *TransactionRequ
 	}
 
 	var t Transaction
-	mapstructure.Decode(r.Data, t)
+	MapDecoder(r.Data, t)
 	return &t, resp, nil
 }
 
@@ -129,7 +128,7 @@ func (s *TransactionService) Verify(ctx context.Context, reference string) (*Tra
 	}
 
 	var t Transaction
-	mapstructure.Decode(r.Data, t)
+	MapDecoder(r.Data, t)
 	return &t, resp, nil
 }
 
@@ -178,7 +177,7 @@ func (s *TransactionService) Fetch(ctx context.Context, id string) (*Transaction
 		return nil, resp, err
 	}
 	var t Transaction
-	mapstructure.Decode(r.Data, t)
+	MapDecoder(r.Data, t)
 	return &t, resp, nil
 }
 
@@ -199,7 +198,7 @@ func (s *TransactionService) ChargeAuthorization(ctx context.Context, tr *Transa
 		return nil, resp, err
 	}
 	var t Transaction
-	mapstructure.Decode(r.Data, t)
+	MapDecoder(r.Data, t)
 	return &t, resp, nil
 }
 
@@ -219,7 +218,7 @@ func (s *TransactionService) Timeline(ctx context.Context, id string) (*Transact
 		return nil, resp, err
 	}
 	var tt TransactionTimeline
-	mapstructure.Decode(r.Data, tt)
+	MapDecoder(r.Data, tt)
 	return &tt, resp, nil
 }
 
@@ -245,7 +244,7 @@ func (s *TransactionService) Totals(ctx context.Context, opt *TransactionOptions
 		return nil, resp, err
 	}
 	var t TransactionTotal
-	mapstructure.Decode(r.Data, t)
+	MapDecoder(r.Data, t)
 	return &t, resp, nil
 }
 
@@ -266,7 +265,7 @@ func (s *TransactionService) Export(ctx context.Context, opt *TransactionOptions
 		return nil, resp, err
 	}
 	var ep ExportPath
-	mapstructure.Decode(r.Data, ep)
+	MapDecoder(r.Data, ep)
 	return &ep, resp, nil
 }
 
@@ -292,7 +291,7 @@ func (s *TransactionService) RequestReauthorization(ctx context.Context, opt *Tr
 		return nil, resp, err
 	}
 	var ep Reauthorization
-	mapstructure.Decode(r.Data, ep)
+	MapDecoder(r.Data, ep)
 	return &ep, resp, nil
 }
 
@@ -319,6 +318,6 @@ func (s *TransactionService) CheckAuthorization(ctx context.Context, opt *Transa
 	}
 
 	var fbc FieldByCurrency
-	mapstructure.Decode(r.Data, fbc)
+	MapDecoder(r.Data, fbc)
 	return &fbc, resp, nil
 }
