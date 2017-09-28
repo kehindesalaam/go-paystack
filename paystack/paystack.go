@@ -14,7 +14,7 @@ import (
 	"sync"
 
 	"github.com/google/go-querystring/query"
-	"github.com/mitchellh/mapstructure"
+	"github.com/kehindesalaam/mapstructure"
 	"time"
 )
 
@@ -84,7 +84,7 @@ type StandardListResponse struct {
 type Meta struct {
 	Total     int    `json:"total"`
 	Skipped   int    `json:"skipped"`
-	PerPage   string `json:"perPage"` //awkward
+	PerPage   int `json:"perPage"` //awkward
 	Page      int    `json:"page"`
 	PageCount int    `json:"pageCount"`
 }

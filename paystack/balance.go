@@ -16,9 +16,9 @@ type Balance struct {
 //
 // Paystack API reference:
 // https://developers.paystack.co/reference#check-balance
-func (s *BalanceService) Check(ctx context.Context) ([]Balance, *Response, error) {
+func (s *BalanceService) Check(ctx context.Context) ([]*Balance, *Response, error) {
 	u := fmt.Sprintf("balance")
-	req, err := s.client.NewRequest("POST", u, nil)
+	req, err := s.client.NewRequest("GET", u, nil)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -27,11 +27,11 @@ func (s *BalanceService) Check(ctx context.Context) ([]Balance, *Response, error
 	if err != nil {
 		return nil, resp, err
 	}
-	var ba []Balance
+	var ba []*Balance
 	b := new(Balance)
 	for _, x := range lr.Data {
 		MapDecoder(x, b)
-		ba = append(ba, *b)
+		ba = append(ba, b)
 	}
 	return ba, resp, nil
 }

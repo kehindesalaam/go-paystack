@@ -106,12 +106,14 @@ func (s *PageService) Fetch(ctx context.Context, id string) (*Page, *Response, e
 	if err != nil {
 		return nil, nil, err
 	}
-	c := new(PageResponse)
+	c := new(StandardResponse)
 	resp, err := s.client.Do(ctx, req, c)
 	if err != nil {
 		return nil, resp, err
 	}
-	return &c.Data, resp, nil
+	p := new(Page)
+	MapDecoder(c.Data, p)
+	return p, resp, nil
 }
 
 // Update updates a page model with the page

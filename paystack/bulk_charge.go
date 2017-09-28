@@ -16,11 +16,13 @@ type BulkBatchRequest struct {
 type BulkBatch struct {
 	Domain      *string    `json:"domain, omitempty"`
 	BatchCode   *string    `json:"batch_code, omitempty"`
-	Status      *bool      `json:"status, omitempty"`
+	Status      *string    `json:"status, omitempty"`
 	Id          *int       `json:"id, omitempty"`
 	Integration *int       `json:"integration, omitempty"`
-	CreatedAt   *time.Time `json:"created_at, omitempty"`
-	UpdatedAt   *time.Time `json:"updated_at, omitempty"`
+	CreatedAt   *time.Time `json:"createdAt, omitempty"`
+	UpdatedAt   *time.Time `json:"updatedAt, omitempty"`
+	TotalCharges *int      `json:"total_charges, omitempty"`
+	PendingCharges *int    `json:"pending_charges, omitempty"`
 }
 
 type BulkCharge struct {
@@ -42,7 +44,7 @@ type BulkCharge struct {
 //
 // Paystack API reference:
 // https://developers.paystack.co/reference#initiate-bulk-charge
-func (s *BulkChargeService) Initiate(ctx context.Context, request *BulkBatchRequest) (*BulkBatch, *Response, error) {
+func (s *BulkChargeService) Initiate(ctx context.Context, request []*BulkBatchRequest) (*BulkBatch, *Response, error) {
 	u := fmt.Sprintf("bulkcharge")
 	req, err := s.client.NewRequest("POST", u, request)
 	if err != nil {
@@ -111,7 +113,7 @@ func (s *BulkChargeService) FetchBatch(ctx context.Context, id string) (*BulkBat
 //
 // Paystack API reference:
 // https://developers.paystack.co/reference#fetch-transaction
-func (s *BulkChargeService) FetchBatchCharges(ctx context.Context, id string, opt *BullkChargeOptions) ([]BulkCharge, *Response, error) {
+func (s *BulkChargeService) FetchBatchCharges(ctx context.Context, id string, opt *BullkChargeOptions) ([]*BulkCharge, *Response, error) {
 	u := fmt.Sprintf("bulkcharge/" + id + "charges")
 	//Response is erroneous if opt.Page or opt.PerPage = 0
 
@@ -125,11 +127,11 @@ func (s *BulkChargeService) FetchBatchCharges(ctx context.Context, id string, op
 	if err != nil {
 		return nil, resp, err
 	}
-	var ta []BulkCharge
+	var ta []*BulkCharge
 	c := new(BulkCharge)
 	for _, x := range lr.Data {
 		MapDecoder(x, c)
-		ta = append(ta, *c)
+		ta = append(ta, c)
 	}
 	return ta, resp, nil
 }

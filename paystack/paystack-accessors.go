@@ -332,9 +332,9 @@ func (b *BulkBatch) GetIntegration() int {
 }
 
 // GetStatus returns the Status field if it's non-nil, zero value otherwise.
-func (b *BulkBatch) GetStatus() bool {
+func (b *BulkBatch) GetStatus() string {
 	if b == nil || b.Status == nil {
-		return false
+		return ""
 	}
 	return *b.Status
 }
@@ -795,6 +795,14 @@ func (h *History) GetType() string {
 	return *h.Type
 }
 
+// GetTimeout returns the Timeout field if it's non-nil, zero value otherwise.
+func (i *IntegrationOptions) GetTimeout() int {
+	if i == nil || i.Timeout == nil {
+		return 0
+	}
+	return *i.Timeout
+}
+
 // GetChannel returns the Channel field if it's non-nil, zero value otherwise.
 func (l *Log) GetChannel() string {
 	if l == nil || l.Channel == nil {
@@ -833,86 +841,6 @@ func (m *Message) GetStatus() bool {
 		return false
 	}
 	return *m.Status
-}
-
-// GetAmount returns the Amount field if it's non-nil, zero value otherwise.
-func (o *ListOptions) GetAmount() string {
-	if o == nil || o.Amount == nil {
-		return ""
-	}
-	return *o.Amount
-}
-
-// GetCurrency returns the Currency field if it's non-nil, zero value otherwise.
-func (o *ListOptions) GetCurrency() string {
-	if o == nil || o.Currency == nil {
-		return ""
-	}
-	return *o.Currency
-}
-
-// GetFrom returns the From field if it's non-nil, zero value otherwise.
-func (o *ListOptions) GetFrom() time.Time {
-	if o == nil || o.From == nil {
-		return time.Time{}
-	}
-	return *o.From
-}
-
-// GetPaymentPage returns the PaymentPage field if it's non-nil, zero value otherwise.
-func (o *ListOptions) GetPaymentPage() int {
-	if o == nil || o.PaymentPage == nil {
-		return 0
-	}
-	return *o.PaymentPage
-}
-
-// GetSettled returns the Settled field if it's non-nil, zero value otherwise.
-func (o *ListOptions) GetSettled() bool {
-	if o == nil || o.Settled == nil {
-		return false
-	}
-	return *o.Settled
-}
-
-// GetSettlement returns the Settlement field if it's non-nil, zero value otherwise.
-func (o *ListOptions) GetSettlement() int {
-	if o == nil || o.Settlement == nil {
-		return 0
-	}
-	return *o.Settlement
-}
-
-// GetStatus returns the Status field if it's non-nil, zero value otherwise.
-func (o *ListOptions) GetStatus() string {
-	if o == nil || o.Status == nil {
-		return ""
-	}
-	return *o.Status
-}
-
-// GetSubaccount returns the Subaccount field if it's non-nil, zero value otherwise.
-func (o *ListOptions) GetSubaccount() string {
-	if o == nil || o.Subaccount == nil {
-		return ""
-	}
-	return *o.Subaccount
-}
-
-// GetTimeout returns the Timeout field if it's non-nil, zero value otherwise.
-func (o *ListOptions) GetTimeout() int {
-	if o == nil || o.Timeout == nil {
-		return 0
-	}
-	return *o.Timeout
-}
-
-// GetTo returns the To field if it's non-nil, zero value otherwise.
-func (o *ListOptions) GetTo() time.Time {
-	if o == nil || o.To == nil {
-		return time.Time{}
-	}
-	return *o.To
 }
 
 // GetOTP returns the OTP field if it's non-nil, zero value otherwise.
@@ -1275,6 +1203,14 @@ func (p *Plan) GetUpdatedAt() time.Time {
 	return *p.UpdatedAt
 }
 
+// GetInterval returns the Interval field if it's non-nil, zero value otherwise.
+func (p *PlanOptions) GetInterval() string {
+	if p == nil || p.Interval == nil {
+		return ""
+	}
+	return *p.Interval
+}
+
 // GetAmount returns the Amount field if it's non-nil, zero value otherwise.
 func (p *PlanRequest) GetAmount() int {
 	if p == nil || p.Amount == nil {
@@ -1553,6 +1489,14 @@ func (s *Settlement) GetUpdatedAt() time.Time {
 		return time.Time{}
 	}
 	return *s.UpdatedAt
+}
+
+// GetSubaccount returns the Subaccount field if it's non-nil, zero value otherwise.
+func (s *SettlementOptions) GetSubaccount() string {
+	if s == nil || s.Subaccount == nil {
+		return ""
+	}
+	return *s.Subaccount
 }
 
 // GetAccountNumber returns the AccountNumber field if it's non-nil, zero value otherwise.
@@ -2129,6 +2073,38 @@ func (t *Transaction) GetTransactionDate() time.Time {
 		return time.Time{}
 	}
 	return *t.TransactionDate
+}
+
+// GetCurrency returns the Currency field if it's non-nil, zero value otherwise.
+func (t *TransactionOptions) GetCurrency() string {
+	if t == nil || t.Currency == nil {
+		return ""
+	}
+	return *t.Currency
+}
+
+// GetPaymentPage returns the PaymentPage field if it's non-nil, zero value otherwise.
+func (t *TransactionOptions) GetPaymentPage() int {
+	if t == nil || t.PaymentPage == nil {
+		return 0
+	}
+	return *t.PaymentPage
+}
+
+// GetSettled returns the Settled field if it's non-nil, zero value otherwise.
+func (t *TransactionOptions) GetSettled() bool {
+	if t == nil || t.Settled == nil {
+		return false
+	}
+	return *t.Settled
+}
+
+// GetSettlement returns the Settlement field if it's non-nil, zero value otherwise.
+func (t *TransactionOptions) GetSettlement() int {
+	if t == nil || t.Settlement == nil {
+		return 0
+	}
+	return *t.Settlement
 }
 
 // GetAmount returns the Amount field if it's non-nil, zero value otherwise.
