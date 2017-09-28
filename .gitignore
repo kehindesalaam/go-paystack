@@ -1,4 +1,6 @@
 
 \.idea/
+\test/test.go
 
 *.iml
+example/
