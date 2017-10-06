@@ -74,7 +74,7 @@ func (s *SubscriptionService) Create(ctx context.Context, sa *Subscription) (*Su
 	}
 
 	var c SubscriptionResponse
-	MapDecoder(r.Data, c)
+	mapDecoder(r.Data, c)
 	return &c, resp, nil
 }
 
@@ -104,7 +104,7 @@ func (s *SubscriptionService) List(ctx context.Context, opt *SubscriptionOptions
 	var sa []Subscription
 	st := new(Subscription)
 	for _, x := range lr.Data {
-		MapDecoder(x, st)
+		mapDecoder(x, st)
 		sa = append(sa, *st)
 	}
 	return sa, resp, nil
@@ -126,7 +126,7 @@ func (s *SubscriptionService) Fetch(ctx context.Context, id string) (*Subscripti
 		return nil, resp, err
 	}
 	var st Subscription
-	err = MapDecoder(r.Data, &st)
+	err = mapDecoder(r.Data, &st)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -154,7 +154,7 @@ func (s *SubscriptionService) Disable(ctx context.Context, sa *SubscriptionReque
 		return nil, resp, err
 	}
 	m := new(Message)
-	MapDecoder(r.Data, m)
+	mapDecoder(r.Data, m)
 	return m, resp, nil
 }
 
@@ -179,6 +179,6 @@ func (s *SubscriptionService) Enable(ctx context.Context, sa *SubscriptionReques
 		return nil, resp, err
 	}
 	m := new(Message)
-	MapDecoder(r.Data, m)
+	mapDecoder(r.Data, m)
 	return m, resp, nil
 }

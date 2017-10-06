@@ -44,7 +44,7 @@ func (s *SettlementService) Fetch(ctx context.Context, opt *SettlementOptions) (
 	var sa []Settlement
 	c := new(Settlement)
 	for _, x := range lr.Data {
-		MapDecoder(x, c)
+		mapDecoder(x, c)
 		sa = append(sa, *c)
 	}
 	return sa, resp, nil

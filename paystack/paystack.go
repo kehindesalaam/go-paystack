@@ -107,6 +107,10 @@ type BullkChargeOptions struct {
 	Status string `json:"status, omitempty"`
 }
 
+type CustomerOptions struct {
+	ExcludeTransactions bool `json:"exclude_transactions, omitempty"`
+}
+
 type IntegrationOptions struct {
 	Timeout *int `json:"timeout, omitempty"`
 }
@@ -176,11 +180,11 @@ type Authorization struct {
 }
 
 type Photo struct {
-	Type      string `json:"type, omitempty"`
-	TypeId    string `json:"typeId, omitempty"`
-	TypeName  string `json:"typeName, omitempty"`
-	URL       string `json:"url, omitempty"`
-	IsPrimary bool   `json:"isPrimary, omitempty"`
+	Type      *string `json:"type, omitempty"`
+	TypeId    *string `json:"typeId, omitempty"`
+	TypeName  *string `json:"typeName, omitempty"`
+	URL       *string `json:"url, omitempty"`
+	IsPrimary *bool   `json:"isPrimary, omitempty"`
 }
 
 type FieldByCurrency struct {
@@ -511,9 +515,9 @@ func Int(v int) *int { return &v }
 // to store v and returns a pointer to it.
 func String(v string) *string { return &v }
 
-// MapDecoder is a helper function that decodes map[string]interface{}
+// mapDecoder is a helper function that decodes map[string]interface{}
 // objects into another interface
-func MapDecoder(source interface{}, target interface{}) error {
+func mapDecoder(source interface{}, target interface{}) error {
 	stringToDateTimeHook := func(
 		f reflect.Type,
 		t reflect.Type,

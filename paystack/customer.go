@@ -77,7 +77,7 @@ func (s *CustomerService) Create(ctx context.Context, cr *CustomerRequest) (*Cus
 	}
 
 	c := new(Customer)
-	MapDecoder(r.Data, c)
+	mapDecoder(r.Data, c)
 	return c, resp, nil
 }
 
@@ -85,7 +85,7 @@ func (s *CustomerService) Create(ctx context.Context, cr *CustomerRequest) (*Cus
 //
 // Paystack API reference:
 // https://developers.paystack.co/reference#list-customers
-func (s *CustomerService) List(ctx context.Context, opt *ListOptions) ([]Customer, *Response, error) {
+func (s *CustomerService) List(ctx context.Context, opt *ListOptions) ([]*Customer, *Response, error) {
 	u := fmt.Sprintf("customer")
 	//Response is erroneous if opt.Page or opt.PerPage = 0
 	u, err := addOptions(u, opt)
@@ -102,11 +102,11 @@ func (s *CustomerService) List(ctx context.Context, opt *ListOptions) ([]Custome
 	if err != nil {
 		return nil, resp, err
 	}
-	var ca []Customer
-	c := new(Customer)
+	var ca []*Customer
 	for _, x := range lr.Data {
-		MapDecoder(x, c)
-		ca = append(ca, *c)
+		c := new(Customer)
+		mapDecoder(x, c)
+		ca = append(ca, c)
 	}
 	return ca, resp, nil
 }
@@ -115,8 +115,9 @@ func (s *CustomerService) List(ctx context.Context, opt *ListOptions) ([]Custome
 //
 // Paystack API reference:
 // https://developers.paystack.co/reference#fetch-customer
-func (s *CustomerService) Fetch(ctx context.Context, id string) (*Customer, *Response, error) {
+func (s *CustomerService) Fetch(ctx context.Context, id string, options *CustomerOptions) (*Customer, *Response, error) {
 	u := fmt.Sprintf("customer/" + id)
+	u, err := addOptions(u, options)
 	req, err := s.client.NewRequest("GET", u, nil)
 	if err != nil {
 		return nil, nil, err
@@ -127,7 +128,7 @@ func (s *CustomerService) Fetch(ctx context.Context, id string) (*Customer, *Res
 		return nil, resp, err
 	}
 	var c Customer
-	err = MapDecoder(r.Data, &c)
+	err = mapDecoder(r.Data, &c)
 	if err != nil {
 		return nil, resp, err
 	}
@@ -150,7 +151,7 @@ func (s *CustomerService) Update(ctx context.Context, cr *CustomerRequest, custo
 		return nil, resp, err
 	}
 	var c Customer
-	MapDecoder(&r.Data, c)
+	mapDecoder(r.Data, &c)
 	return &c, resp, nil
 }
 
@@ -174,7 +175,7 @@ func (s *CustomerService) SetRiskAction(ctx context.Context, rap *RiskActionPayl
 		return nil, resp, err
 	}
 	var c Customer
-	MapDecoder(r.Data, c)
+	mapDecoder(r.Data, &c)
 	return &c, resp, nil
 }
 
@@ -182,19 +183,17 @@ func (s *CustomerService) SetRiskAction(ctx context.Context, rap *RiskActionPayl
 //the card authentication code is supplied
 // Paystack API reference:
 // https://developers.paystack.co/reference#deactivate-authorization
-func (s *CustomerService) DeactivateAuthorization(ctx context.Context, a *Authorization) (*Customer, *Response, error) {
+func (s *CustomerService) DeactivateAuthorization(ctx context.Context, a *Authorization) (*Message, *Response, error) {
 
 	u := fmt.Sprintf("customer/deactivate_authorization")
 	req, err := s.client.NewRequest("POST", u, a)
 	if err != nil {
 		return nil, nil, err
 	}
-	r := new(StandardResponse)
+	r := new(Message)
 	resp, err := s.client.Do(ctx, req, r)
 	if err != nil {
 		return nil, resp, err
 	}
-	var c Customer
-	MapDecoder(r.Data, c)
-	return &c, resp, nil
+	return r, resp, nil
 }

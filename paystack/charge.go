@@ -59,7 +59,7 @@ func (s *ChargeService) Tokenize(ctx context.Context, request *ChargeRequest) (*
 		return nil, resp, err
 	}
 	m := new(Authorization)
-	MapDecoder(r.Data, m)
+	mapDecoder(r.Data, m)
 	return m, resp, nil
 }
 
@@ -79,7 +79,7 @@ func (s *ChargeService) Charge(ctx context.Context, request *ChargeRequest) (*Tr
 		return nil, resp, err
 	}
 	m := new(Transaction)
-	MapDecoder(r.Data, m)
+	mapDecoder(r.Data, m)
 	return m, resp, nil
 }
 
@@ -99,7 +99,7 @@ func (s *ChargeService) SubmitPIN(ctx context.Context, request *PinRequest) (*Tr
 		return nil, resp, err
 	}
 	m := new(Transaction)
-	MapDecoder(r.Data, m)
+	mapDecoder(r.Data, m)
 	return m, resp, nil
 }
 
@@ -119,7 +119,7 @@ func (s *ChargeService) SubmitOTP(ctx context.Context, request *OTPRequest) (*Tr
 		return nil, resp, err
 	}
 	m := new(Transaction)
-	MapDecoder(r.Data, m)
+	mapDecoder(r.Data, m)
 	return m, resp, nil
 }
 
@@ -139,7 +139,7 @@ func (s *ChargeService) SubmitPhone(ctx context.Context, request *PhoneRequest) 
 		return nil, resp, err
 	}
 	m := new(Transaction)
-	MapDecoder(r.Data, m)
+	mapDecoder(r.Data, m)
 	return m, resp, nil
 }
 
@@ -159,7 +159,7 @@ func (s *ChargeService) SubmitBirthday(ctx context.Context, request *BirthdayReq
 		return nil, resp, err
 	}
 	m := new(Transaction)
-	MapDecoder(r.Data, m)
+	mapDecoder(r.Data, m)
 	return m, resp, nil
 }
 
@@ -179,6 +179,6 @@ func (s *ChargeService) CheckPending(ctx context.Context, reference *string) (*T
 		return nil, resp, err
 	}
 	m := new(Transaction)
-	MapDecoder(r.Data, m)
+	mapDecoder(r.Data, m)
 	return m, resp, nil
 }

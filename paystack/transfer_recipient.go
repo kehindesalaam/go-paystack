@@ -58,7 +58,7 @@ func (s *TransferRecipientService) Create(ctx context.Context, t *TransferRecipi
 		return nil, resp, err
 	}
 	tr := new(TransferRecipient)
-	MapDecoder(r.Data, tr)
+	mapDecoder(r.Data, tr)
 	return tr, resp, nil
 }
 
@@ -87,7 +87,7 @@ func (s *TransferRecipientService) List(ctx context.Context, opt *ListOptions) (
 	var ca []TransferRecipient
 	c := new(TransferRecipient)
 	for _, x := range r.Data {
-		MapDecoder(x, c)
+		mapDecoder(x, c)
 		ca = append(ca, *c)
 	}
 	return ca, resp, nil

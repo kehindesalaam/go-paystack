@@ -28,9 +28,9 @@ func (s *BalanceService) Check(ctx context.Context) ([]*Balance, *Response, erro
 		return nil, resp, err
 	}
 	var ba []*Balance
-	b := new(Balance)
 	for _, x := range lr.Data {
-		MapDecoder(x, b)
+		b := new(Balance)
+		mapDecoder(x, b)
 		ba = append(ba, b)
 	}
 	return ba, resp, nil

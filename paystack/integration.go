@@ -27,7 +27,7 @@ func (s *IntegrationService) FetchPaymentSessionTimeout(ctx context.Context) (*P
 		return nil, resp, err
 	}
 	m := new(PaymentSession)
-	MapDecoder(r.Data, m)
+	mapDecoder(r.Data, m)
 	return m, resp, nil
 }
 
@@ -48,6 +48,6 @@ func (s *IntegrationService) UpdatePaymentSessionTimeout(ctx context.Context, op
 		return nil, resp, err
 	}
 	m := new(PaymentSession)
-	MapDecoder(r.Data, m)
+	mapDecoder(r.Data, m)
 	return m, resp, nil
 }

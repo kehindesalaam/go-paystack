@@ -78,7 +78,7 @@ func (s *PlanService) Create(ctx context.Context, p *PlanRequest) (*Plan, *Respo
 		return nil, resp, err
 	}
 	var pr Plan
-	MapDecoder(r.Data, pr)
+	mapDecoder(r.Data, pr)
 	return &pr, resp, nil
 }
 
@@ -108,7 +108,7 @@ func (s *PlanService) List(ctx context.Context, opt *PlanOptions) ([]Plan, *Resp
 	var pa []Plan
 	p := new(Plan)
 	for _, x := range lr.Data {
-		MapDecoder(x, p)
+		mapDecoder(x, p)
 		pa = append(pa, *p)
 	}
 	return pa, resp, nil
@@ -130,7 +130,7 @@ func (s *PlanService) Fetch(ctx context.Context, id string) (*Plan, *Response, e
 		return nil, resp, err
 	}
 	var pr Plan
-	MapDecoder(r.Data, pr)
+	mapDecoder(r.Data, pr)
 	return &pr, resp, nil
 }
 
@@ -150,6 +150,6 @@ func (s *PlanService) Update(ctx context.Context, sa *Plan, id string) (*PlanSub
 		return nil, resp, err
 	}
 	var p PlanSubscription
-	MapDecoder(pr.Data, p)
+	mapDecoder(pr.Data, p)
 	return &p, resp, nil
 }

@@ -107,7 +107,7 @@ func (s *TransactionService) Initialize(ctx context.Context, tr *TransactionRequ
 	}
 
 	var t Transaction
-	MapDecoder(r.Data, t)
+	mapDecoder(r.Data, t)
 	return &t, resp, nil
 }
 
@@ -128,7 +128,7 @@ func (s *TransactionService) Verify(ctx context.Context, reference string) (*Tra
 	}
 
 	var t Transaction
-	MapDecoder(r.Data, t)
+	mapDecoder(r.Data, t)
 	return &t, resp, nil
 }
 
@@ -155,7 +155,7 @@ func (s *TransactionService) List(ctx context.Context, opt *TransactionOptions) 
 	var ta []Transaction
 	t := new(Transaction)
 	for _, x := range r.Data {
-		MapDecoder(x, t)
+		mapDecoder(x, t)
 		ta = append(ta, *t)
 	}
 	return ta, resp, nil
@@ -177,7 +177,7 @@ func (s *TransactionService) Fetch(ctx context.Context, id string) (*Transaction
 		return nil, resp, err
 	}
 	var t Transaction
-	MapDecoder(r.Data, t)
+	mapDecoder(r.Data, t)
 	return &t, resp, nil
 }
 
@@ -198,7 +198,7 @@ func (s *TransactionService) ChargeAuthorization(ctx context.Context, tr *Transa
 		return nil, resp, err
 	}
 	var t Transaction
-	MapDecoder(r.Data, t)
+	mapDecoder(r.Data, t)
 	return &t, resp, nil
 }
 
@@ -218,7 +218,7 @@ func (s *TransactionService) Timeline(ctx context.Context, id string) (*Transact
 		return nil, resp, err
 	}
 	var tt TransactionTimeline
-	MapDecoder(r.Data, tt)
+	mapDecoder(r.Data, tt)
 	return &tt, resp, nil
 }
 
@@ -244,7 +244,7 @@ func (s *TransactionService) Totals(ctx context.Context, opt *TransactionOptions
 		return nil, resp, err
 	}
 	var t TransactionTotal
-	MapDecoder(r.Data, t)
+	mapDecoder(r.Data, t)
 	return &t, resp, nil
 }
 
@@ -265,7 +265,7 @@ func (s *TransactionService) Export(ctx context.Context, opt *TransactionOptions
 		return nil, resp, err
 	}
 	var ep ExportPath
-	MapDecoder(r.Data, ep)
+	mapDecoder(r.Data, ep)
 	return &ep, resp, nil
 }
 
@@ -291,7 +291,7 @@ func (s *TransactionService) RequestReauthorization(ctx context.Context, opt *Tr
 		return nil, resp, err
 	}
 	var ep Reauthorization
-	MapDecoder(r.Data, ep)
+	mapDecoder(r.Data, ep)
 	return &ep, resp, nil
 }
 
@@ -318,6 +318,6 @@ func (s *TransactionService) CheckAuthorization(ctx context.Context, opt *Transa
 	}
 
 	var fbc FieldByCurrency
-	MapDecoder(r.Data, fbc)
+	mapDecoder(r.Data, fbc)
 	return &fbc, resp, nil
 }

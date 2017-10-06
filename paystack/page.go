@@ -61,7 +61,7 @@ func (s *PageService) Create(ctx context.Context, sa *PageRequest) (*Page, *Resp
 		return nil, resp, err
 	}
 	p := new(Page)
-	MapDecoder(r.Data, p)
+	mapDecoder(r.Data, p)
 	return p, resp, nil
 }
 
@@ -90,7 +90,7 @@ func (s *PageService) List(ctx context.Context, opt *ListOptions) ([]Page, *Resp
 	var pa []Page
 	p := new(Page)
 	for _, x := range lr.Data {
-		MapDecoder(x, p)
+		mapDecoder(x, p)
 		pa = append(pa, *p)
 	}
 	return pa, resp, nil
@@ -112,7 +112,7 @@ func (s *PageService) Fetch(ctx context.Context, id string) (*Page, *Response, e
 		return nil, resp, err
 	}
 	p := new(Page)
-	MapDecoder(c.Data, p)
+	mapDecoder(c.Data, p)
 	return p, resp, nil
 }
 
@@ -132,7 +132,7 @@ func (s *PageService) Update(ctx context.Context, sa *PageRequest, id string) (*
 		return nil, resp, err
 	}
 	p := new(Page)
-	MapDecoder(r.Data, p)
+	mapDecoder(r.Data, p)
 	return p, resp, nil
 }
 
@@ -152,6 +152,6 @@ func (s *PageService) CheckSlugAvailability(ctx context.Context, id string) (*Me
 		return nil, resp, err
 	}
 	m := new(Message)
-	MapDecoder(r.Data, m)
+	mapDecoder(r.Data, m)
 	return m, resp, nil
 }

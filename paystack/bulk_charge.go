@@ -56,7 +56,7 @@ func (s *BulkChargeService) Initiate(ctx context.Context, request []*BulkBatchRe
 		return nil, resp, err
 	}
 	bb := new(BulkBatch)
-	MapDecoder(r.Data, bb)
+	mapDecoder(r.Data, bb)
 	return bb, resp, nil
 }
 
@@ -64,7 +64,7 @@ func (s *BulkChargeService) Initiate(ctx context.Context, request []*BulkBatchRe
 //
 // Paystack API reference:
 // https://developers.paystack.co/reference#list-transactions
-func (s *BulkChargeService) ListBatches(ctx context.Context, opt *ListOptions) ([]BulkBatch, *Response, error) {
+func (s *BulkChargeService) ListBatches(ctx context.Context, opt *ListOptions) ([]*BulkBatch, *Response, error) {
 	u := fmt.Sprintf("bulkcharge")
 	//Response is erroneous if opt.Page or opt.PerPage = 0
 	u, err := addOptions(u, opt)
@@ -79,11 +79,11 @@ func (s *BulkChargeService) ListBatches(ctx context.Context, opt *ListOptions) (
 	if err != nil {
 		return nil, resp, err
 	}
-	var bba []BulkBatch
-	bb := new(BulkBatch)
+	var bba []*BulkBatch
 	for _, x := range lr.Data {
-		MapDecoder(x, bb)
-		bba = append(bba, *bb)
+		bb := new(BulkBatch)
+		mapDecoder(x, bb)
+		bba = append(bba, bb)
 	}
 	return bba, resp, nil
 
@@ -105,7 +105,7 @@ func (s *BulkChargeService) FetchBatch(ctx context.Context, id string) (*BulkBat
 		return nil, resp, err
 	}
 	m := new(BulkBatch)
-	MapDecoder(r.Data, m)
+	mapDecoder(r.Data, m)
 	return m, resp, nil
 }
 
@@ -130,7 +130,7 @@ func (s *BulkChargeService) FetchBatchCharges(ctx context.Context, id string, op
 	var ta []*BulkCharge
 	c := new(BulkCharge)
 	for _, x := range lr.Data {
-		MapDecoder(x, c)
+		mapDecoder(x, c)
 		ta = append(ta, c)
 	}
 	return ta, resp, nil
@@ -152,7 +152,7 @@ func (s *BulkChargeService) PauseBatch(ctx context.Context, batch_code string) (
 		return nil, resp, err
 	}
 	m := new(Message)
-	MapDecoder(r.Data, m)
+	mapDecoder(r.Data, m)
 	return m, resp, nil
 }
 
@@ -172,6 +172,6 @@ func (s *BulkChargeService) ResumeBatch(ctx context.Context, batch_code string) 
 		return nil, resp, err
 	}
 	m := new(Message)
-	MapDecoder(r.Data, m)
+	mapDecoder(r.Data, m)
 	return m, resp, nil
 }

@@ -68,7 +68,7 @@ func (s *MiscellaneousService) ListBanks(ctx context.Context, opt *ListOptions) 
 	var ba []Bank
 	b := new(Bank)
 	for _, x := range lr.Data {
-		MapDecoder(x, b)
+		mapDecoder(x, b)
 		ba = append(ba, *b)
 	}
 	return ba, resp, nil
@@ -90,7 +90,7 @@ func (s *MiscellaneousService) ResolveCardBin(ctx context.Context, id string) (*
 		return nil, resp, err
 	}
 	b := new(Bin)
-	MapDecoder(r.Data, b)
+	mapDecoder(r.Data, b)
 	return b, resp, nil
 }
 
@@ -110,7 +110,7 @@ func (s *MiscellaneousService) ResolveBvn(ctx context.Context, id string) (*BvnD
 		return nil, resp, err
 	}
 	b := new(BvnData)
-	MapDecoder(r.Data, b)
+	mapDecoder(r.Data, b)
 	return b, resp, nil
 }
 
@@ -134,6 +134,6 @@ func (s *MiscellaneousService) ResolveAccountNumber(ctx context.Context, opt *Li
 		return nil, resp, err
 	}
 	c := new(AccountData)
-	MapDecoder(r.Data, c)
+	mapDecoder(r.Data, c)
 	return c, resp, nil
 }

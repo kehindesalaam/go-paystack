@@ -62,7 +62,7 @@ func (s *TransferService) Initiate(ctx context.Context, t *TransferRequest) (*Tr
 		return nil, resp, err
 	}
 	c := new(Transfer)
-	MapDecoder(r.Data, c)
+	mapDecoder(r.Data, c)
 	return c, resp, nil
 }
 
@@ -91,7 +91,7 @@ func (s *TransferService) List(ctx context.Context, opt *ListOptions) ([]Transfe
 	var ta []Transfer
 	c := new(Transfer)
 	for _, x := range lr.Data {
-		MapDecoder(x, c)
+		mapDecoder(x, c)
 		ta = append(ta, *c)
 	}
 	return ta, resp, nil
@@ -113,7 +113,7 @@ func (s *TransferService) Fetch(ctx context.Context, id string) (*Transfer, *Res
 		return nil, resp, err
 	}
 	c := new(Transfer)
-	MapDecoder(r.Data, c)
+	mapDecoder(r.Data, c)
 	return c, resp, nil
 }
 
@@ -153,7 +153,7 @@ func (s *TransferService) InitiateBulkTransfer(ctx context.Context, t *BulkTrans
 		return nil, resp, err
 	}
 	m := new(Message)
-	MapDecoder(r.Data, m)
+	mapDecoder(r.Data, m)
 	return m, resp, nil
 }
 
@@ -173,7 +173,7 @@ func (s *TransferService) ResendOTP(ctx context.Context, sa *TransferRequest) (*
 		return nil, resp, err
 	}
 	m := new(Message)
-	MapDecoder(r.Data, m)
+	mapDecoder(r.Data, m)
 	return m, resp, nil
 }
 
@@ -193,7 +193,7 @@ func (s *TransferService) DisableOTP(ctx context.Context) (*Message, *Response, 
 		return nil, resp, err
 	}
 	m := new(Message)
-	MapDecoder(r.Data, m)
+	mapDecoder(r.Data, m)
 	return m, resp, nil
 }
 
@@ -213,7 +213,7 @@ func (s *TransferService) DisableOTPFinalize(ctx context.Context) (*Message, *Re
 		return nil, resp, err
 	}
 	m := new(Message)
-	MapDecoder(r.Data, m)
+	mapDecoder(r.Data, m)
 	return m, resp, nil
 }
 
@@ -233,6 +233,6 @@ func (s *TransferService) EnableOTP(ctx context.Context) (*Message, *Response, e
 		return nil, resp, err
 	}
 	m := new(Message)
-	MapDecoder(r.Data, m)
+	mapDecoder(r.Data, m)
 	return m, resp, nil
 }

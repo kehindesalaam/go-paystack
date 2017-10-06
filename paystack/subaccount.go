@@ -61,7 +61,7 @@ func (s *SubaccountService) Create(ctx context.Context, sr *SubaccountRequest) (
 	}
 
 	var sa Subaccount
-	MapDecoder(r.Data, sa)
+	mapDecoder(r.Data, sa)
 	return &sa, resp, nil
 }
 
@@ -91,7 +91,7 @@ func (s *SubaccountService) List(ctx context.Context, opt *ListOptions) ([]Subac
 	var saa []Subaccount
 	sa := new(Subaccount)
 	for _, x := range r.Data {
-		MapDecoder(x, sa)
+		mapDecoder(x, sa)
 		saa = append(saa, *sa)
 	}
 	return saa, resp, nil
@@ -113,7 +113,7 @@ func (s *SubaccountService) Fetch(ctx context.Context, id string) (*Subaccount, 
 		return nil, resp, err
 	}
 	var sa Subaccount
-	MapDecoder(r.Data, sa)
+	mapDecoder(r.Data, sa)
 	return &sa, resp, nil
 }
 
@@ -133,6 +133,6 @@ func (s *SubaccountService) Update(ctx context.Context, sa *SubaccountRequest, i
 		return nil, resp, err
 	}
 	var sar Subaccount
-	MapDecoder(r.Data, sar)
+	mapDecoder(r.Data, sar)
 	return &sar, resp, nil
 }

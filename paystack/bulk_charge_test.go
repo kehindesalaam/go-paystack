@@ -95,8 +95,8 @@ func TestBulkChargeService_ListBatches(t *testing.T) {
 	createdAt := time.Date(2017, 02, 04, 05, 44, 19, 0, time.UTC)
 	updatedAt := time.Date(2017, 02, 04, 05, 45, 02, 0, time.UTC)
 
-	var want []BulkBatch
-	want = append(want, BulkBatch{
+	var want []*BulkBatch
+	want = append(want, &BulkBatch{
 		Domain:    String("test"),
 		BatchCode: String("BCH_1nV4L1D7cayggh"),
 		Status:    String("complete"),
