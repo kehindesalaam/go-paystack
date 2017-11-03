@@ -779,14 +779,6 @@ func (h *History) GetMessage() string {
 	return *h.Message
 }
 
-// GetTime returns the Time field if it's non-nil, zero value otherwise.
-func (h *History) GetTime() string {
-	if h == nil || h.Time == nil {
-		return ""
-	}
-	return *h.Time
-}
-
 // GetType returns the Type field if it's non-nil, zero value otherwise.
 func (h *History) GetType() string {
 	if h == nil || h.Type == nil {
@@ -794,6 +786,15 @@ func (h *History) GetType() string {
 	}
 	return *h.Type
 }
+
+// GetTime returns the Time field if it's non-nil, zero value otherwise.
+func (i *History) GetTime() int {
+	if i == nil || i.Time == nil {
+		return 0
+	}
+	return *i.Time
+}
+
 
 // GetTimeout returns the Timeout field if it's non-nil, zero value otherwise.
 func (i *IntegrationOptions) GetTimeout() int {

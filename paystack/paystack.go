@@ -142,15 +142,15 @@ type PlanOptions struct {
 
 type SubscriptionOptions struct {
 	ListOptions
-	Customer int32  `json:"customer, omitempty"`
-	Plan     *int32 `json:"plan, omitempty"`
+	Customer int  `json:"customer, omitempty"`
+	Plan     *int `json:"plan, omitempty"`
 }
 
 type Log struct {
-	TimeSpent      *int32        `json:"time_spent, omitempty"`
-	Attempts       *int32        `json:"attempts, omitempty"`
+	TimeSpent      *int          `json:"time_spent, omitempty"`
+	Attempts       *int          `json:"attempts, omitempty"`
 	Authentication interface{}   `json:"authentication, omitempty"`
-	Errors         *int32        `json:"errors, omitempty"`
+	Errors         *int          `json:"errors, omitempty"`
 	Success        *bool         `json:"success, omitempty"`
 	Mobile         *bool         `json:"mobile, omitempty"`
 	Input          []interface{} `json:"input, omitempty"`
@@ -161,7 +161,7 @@ type Log struct {
 type History struct {
 	Type    *string `json:"type, omitempty"`
 	Message *string `json:"message, omitempty"`
-	Time    *string `json:"time, omitempty"`
+	Time    *int `json:"time, omitempty"`
 }
 
 type Authorization struct {

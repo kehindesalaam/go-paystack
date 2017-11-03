@@ -34,7 +34,7 @@ type Transaction struct {
 	Status          *string       `json:"status, omitempty"`
 	Reference       *string       `json:"reference, omitempty"`
 	Domain          *string       `json:"domain, omitempty"`
-	Metadata        Metadata      `json:"metadata, omitempty"`
+	Metadata        map[string]interface{}       `json:"metadata, omitempty"`	//Paystack API is not consistent with return type
 	GatewayResponse *string       `json:"gateway_response, omitempty"`
 	Message         *string       `json:"message, omitempty"`
 	Channel         *string       `json:"channel, omitempty"`
@@ -49,6 +49,37 @@ type Transaction struct {
 	CreatedAt       *time.Time    `json:"created_at, omitempty"`
 	FeesSplit       *int          `json:"fees_split, omitempty"`
 	Subaccount      Subaccount    `json:"subaccount, omitempty"`
+}
+
+type TransactionVerify struct {
+	Amount          *int          `json:"amount, omitempty"`
+	Currency        *string       `json:"currency, omitempty"`
+	TransactionDate *time.Time    `json:"transaction_date, omitempty"`
+	Status          *string       `json:"status, omitempty"`
+	Reference       *string       `json:"reference, omitempty"`
+	Domain          *string       `json:"domain, omitempty"`
+	Metadata        map[string]interface{}       `json:"metadata, omitempty"`	//Paystack API is not consistent with return type
+	GatewayResponse *string       `json:"gateway_response, omitempty"`
+	Message         *string       `json:"message, omitempty"`
+	Channel         *string       `json:"channel, omitempty"`
+	IpAddress       *string       `json:"ip_address, omitempty"`
+	Log             Log           `json:"log, omitempty"`
+	Fees            *int          `json:"fees, omitempty"`
+	Authorization   Authorization `json:"authorization, omitempty"`
+	Customer        Customer      `json:"customer, omitempty"`
+	Plan            *string        `json:"plan, omitempty"`
+	Id              *int          `json:"id, omitempty"`
+	PaidAt          *time.Time    `json:"paid_at, omitempty"`
+	CreatedAt       *time.Time    `json:"created_at, omitempty"`
+	FeesSplit       *int          `json:"fees_split, omitempty"`
+	Subaccount      Subaccount    `json:"subaccount, omitempty"`
+}
+
+
+type TransactionAuthorization struct {
+	AuthorizationUrl *string `json:"authorization_url, omitempty"`
+	AccessCode *string `json:"access_code, omitempty"`
+	Reference *string `json:"reference, omitempty"`
 }
 
 type TransactionTimeline struct {
@@ -85,6 +116,7 @@ type ExportRequest struct {
 type ExportPath struct {
 	Path string `json:"path"`
 }
+
 type Reauthorization struct {
 	ReauthorizationUrl *string `json:"reauthorization_url, omitempty"`
 	Reference          *string `json:"reference, omitempty"`
@@ -94,7 +126,7 @@ type Reauthorization struct {
 //
 // Paystack API reference:
 // https://developers.paystack.co/reference#initialize-a-transaction
-func (s *TransactionService) Initialize(ctx context.Context, tr *TransactionRequest) (*Transaction, *Response, error) {
+func (s *TransactionService) Initialize(ctx context.Context, tr *TransactionRequest) (*TransactionAuthorization, *Response, error) {
 	u := fmt.Sprintf("transaction/initialize")
 	req, err := s.client.NewRequest("POST", u, tr)
 	if err != nil {
@@ -106,8 +138,8 @@ func (s *TransactionService) Initialize(ctx context.Context, tr *TransactionRequ
 		return nil, resp, err
 	}
 
-	var t Transaction
-	mapDecoder(r.Data, t)
+	var t TransactionAuthorization
+	mapDecoder(r.Data, &t)
 	return &t, resp, nil
 }
 
@@ -115,8 +147,8 @@ func (s *TransactionService) Initialize(ctx context.Context, tr *TransactionRequ
 //
 // Paystack API reference:
 // https://developers.paystack.co/reference#initialize-a-transaction
-func (s *TransactionService) Verify(ctx context.Context, reference string) (*Transaction, *Response, error) {
-	u := fmt.Sprintf("transaction/verify" + reference)
+func (s *TransactionService) Verify(ctx context.Context, reference string) (*TransactionVerify, *Response, error) {
+	u := fmt.Sprintf("transaction/verify/" + reference)
 	req, err := s.client.NewRequest("GET", u, nil)
 	if err != nil {
 		return nil, nil, err
@@ -127,8 +159,8 @@ func (s *TransactionService) Verify(ctx context.Context, reference string) (*Tra
 		return nil, resp, err
 	}
 
-	var t Transaction
-	mapDecoder(r.Data, t)
+	var t TransactionVerify
+	mapDecoder(r.Data, &t)
 	return &t, resp, nil
 }
 
